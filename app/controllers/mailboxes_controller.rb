@@ -4,6 +4,7 @@ class MailboxesController < ApplicationController
   def messages
     user = User.find_by_mailgun!(params[:recipient])
     user.received = true
+    user.save!
     render nothing: true, status: :ok
   rescue
     render nothing: true, status: :not_found
