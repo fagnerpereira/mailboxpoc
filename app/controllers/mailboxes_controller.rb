@@ -2,8 +2,7 @@ class MailboxesController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def messages
-    email = params[:message][:headers][:to]
-    user = User.find_by_mailgun!(email)
+    user = User.find_by_mailgun!(params[:recipient])
     user.received = true
     render nothing: true, status: :ok
   rescue
